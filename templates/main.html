@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/styles/style.css">
+        <link rel="icon" type="image/png" href="/static/image/favicon.png">
+    <title>Educator</title>
+</head>
+<body>
+
+    <div class="page">
+
+        <!-- Header -->
+        <header class ="header">
+            <div class="container">
+                <div class="header-inner">
+                    <div class="header-brand">
+                        Educator
+                    </div>
+
+                    <div class="header-logo">
+
+                    </div>
+
+                    <nav class="header-nav">
+                        <a class="header-nav-link active" href="/">Главная</a>
+                        <a class="header-nav-link" href="append_employee">Добавить</a>
+                        <a class="header-nav-link" href="directory">Справочник</a>
+                    </nav>
+                </div>
+            </div><!-- /.container -->
+        </header>
+
+
+        <!-- Main -->
+        <div class="container">
+            <div class="content">
+                <div class="content-header">
+                    <h2 class="subtitle">Educator</h2>
+                    <h1 class="title">База данных сотрудников <span>"Озинки-автодорожное"</span></h1>
+                </div>
+                <div class="text">
+                    <p>
+                        Благодаря этой программе, вы можете, обновлять
+                        и получать доступ к данным о каждом сотруднике в удобном и надежном формате.
+                    </p>
+                    <p>
+                        Централизованное хранение данных: Программа позволяет хранить информацию
+                        о каждом сотруднике в одном месте, что облегчает доступ к необходимой
+                        информации и уменьшает риск ее потери или повреждения.
+                    </p>
+                </div>
+
+                <form class="form" action="/search" method="get">
+                    <input class="textarea" name="id" placeholder="Фамилия сотрудника" type="search">
+                    <button class="btn" type="submit">Поиск</button>
+                </form>
+                <p></p>
+                <form class="form" action="/employees" method="get">
+                    <button class="btn" type="submit">Все сотрудники</button>
+                </form>
+
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="copyright">
+                    <p class="copyright-link"> © Все права защищены</p>
+                </div>
+            </div>
+        </footer>
+
+
+    </div><!-- /.page -->
+
+</body>
+</html>

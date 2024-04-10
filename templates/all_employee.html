@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="icon" type="image/png" href="/static/image/favicon.png">
+    <title>Educator</title>
+</head>
+<body>
+
+    <div class="page">
+
+        <!-- Header -->
+        <header class ="header">
+            <div class="container">
+                <div class="header-inner">
+                    <div class="header-brand">
+                        Educator
+                    </div>
+
+                    <div class="header-logo">
+                    </div>
+
+                    <nav class="header-nav">
+                        <a class="header-nav-link" href="/">Главная</a>
+                        <a class="header-nav-link" href="append_employee">Добавить</a>
+                        <a class="header-nav-link" href="directory">Справочник</a>
+                    </nav>
+                </div>
+            </div><!-- /.container -->
+        </header>
+
+
+        <!-- Main -->
+        <div class="container">
+            <h1 class="title">Список всех сотрудников</h1>
+          {%for employee in all_employees%}
+            <div class="content">
+                <div class="content-header">
+                    <div class ="background">
+                        <p class="text-range">№ {{employee[0]}}</p>
+                        <p class="text-range">Фамилия Имя Отчество: {{employee[1]}} {{employee[2]}} {{employee[3]}}</p>
+                        <p class="text-range">Дата рождения: {{employee[4]}}</p>
+                        <p class="text-range">Звание: {{employee[5]}}</p>
+                        <p class="text-range">Должность: {{employee[6]}}</p>
+                        <p class="text-range">Семейное положение: {{employee[7]}}</p>
+                        <p class="text-range">Место жительства: {{employee[8]}}</p>
+                        <p class="text-range">Номер штампа: {{employee[9]}}</p>
+                        <p class="text-range">Номер знака: {{employee[10]}}</p>
+                        <img class = "photo_employee" src="/static/photo_employee/avatar10.jpg" width="250" height="250" alt="">
+                    </div>
+                </div>
+            </div>
+          {%endfor%}
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="footer-dynamic">
+            <div class="container">
+                <div class="copyright">
+                    <p class="copyright-link">© Все права защищены</p>
+                </div>
+            </div>
+        </footer>
+
+
+    </div><!-- /.page -->
+
+</body>
+</html>
