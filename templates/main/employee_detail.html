@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="content">
+        <div class="content-header">
+            <div class="background">
+                <img src="{{ employee.thumbnail.url }}" alt="{{ employee.name }}" width="250"/>
+                <p class="text-range">ФИО: {{ employee.surname }} {{ employee.name }} {{ employee.patronymic }}</p>
+                <p class="text-range">Дата рождения: {{ employee.birthday|date:"d.m.Y" }}</p>
+                <p class="text-range">Образование: {{ employee.education }}</p>
+                <p class="text-range">Должность: {{ employee.position }}</p>
+                <p class="text-range">Звание: {{ employee.rank }}</p>
+                <p class="text-range">Классность: {{ employee.classiness }}</p>
+                <p class="text-range">Номер: {{ employee.number }}</p>
+                <p class="text-range">Значок: {{ employee.badge }}</p>
+                <p class="text-range">Семейное положение: {{ employee.family_status }}</p>
+                <p class="text-range">Телефон: {{ employee.phone_number }}</p>
+                <p class="text-range">Электронная почта: {{ employee.email }}</p>
+                <p class="text-range">Дата поступления на службу: {{ employee.date_came_service|date:"d.m.Y" }}</p>
+            </div>
+        </div>
+    </div>
+    <form class="form" action="{% url 'employee_update' employee.slug %}" method="get">
+        <button class="btn" type="submit">Редактировать</button>
+    </form>
+    <p></p>
+    <form class="form" action="{% url 'employee_delete' employee.slug %}" method="get">
+        <button class="btn" type="submit" style="background-color: red; color: white;">Удалить</button>
+    </form>
+</div>
+{% endblock %}

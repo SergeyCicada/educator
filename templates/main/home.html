@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="content">
+        <div class="content-header">
+            <h2 class="subtitle">Educator</h2>
+            <h1 class="title">База данных сотрудников <span>"Озинки-автодорожное"</span></h1>
+        </div>
+        <div class="text">
+            <p>
+                Благодаря этой программе, вы можете, обновлять
+                и получать доступ к данным о каждом сотруднике в удобном и надежном формате.
+            </p>
+            <p>
+                Централизованное хранение данных: Программа позволяет хранить информацию
+                о каждом сотруднике в одном месте, что облегчает доступ к необходимой
+                информации и уменьшает риск ее потери или повреждения.
+            </p>
+        </div>
+
+        <form class="form" hx-get="/employees/search" hx-target="#search-results" hx-swap="innerHTML">
+            <input class="textarea" name="surname" placeholder="Фамилия сотрудника" type="search">
+            <button class="btn" type="submit">Поиск</button>
+        </form>
+        <p></p>
+        <form class="form" action="/employees" method="get">
+            <button class="btn" type="submit">Все сотрудники</button>
+        </form>
+        <p></p>
+        <div id="search-results"></div> <!-- Место для отображения результатов поиска -->
+    </div>
+</div>
+
+{% endblock %}

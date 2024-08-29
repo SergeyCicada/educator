@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <h1 class="title">Подтверждение удаления</h1>
+    <p class="text-range">Вы уверены, что хотите удалить сотрудника {{ employee.surname }} {{ employee.name }}?</p>
+    <form method="post" action="{{ employee.get_delete_url }}">
+        {% csrf_token %}
+        <button class="btn" type="submit" style="background-color: red; color: white;">Удалить</button>
+        <a href="{{employee.get_absolute_url}}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+
+{% endblock %}
