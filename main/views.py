@@ -1,13 +1,13 @@
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView
 from django.views.generic import TemplateView
-
-from django.contrib.auth.models import User
-from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from .models import Employee
 from .forms import AddEmployeeForm, UpdateEmployeeForm, EmployeeFilterForm
+from django.views.generic.edit import CreateView
+from django.http import JsonResponse
+from django.contrib import messages
+from .models import Employee
+from django.contrib.auth.models import User
 
 
 class HomePageView(TemplateView):
@@ -39,9 +39,8 @@ class EmployeeListView(ListView):
             rank_filter = form.cleaned_data.get('rank')
             education_filter = form.cleaned_data.get('education')
             classiness_filter = form.cleaned_data.get('classiness')
-            family_status_filter = form.cleaned_data.get('family')
+            family_status_filter = form.cleaned_data.get('family_status')
 
-            # Применяем фильтрацию по каждому полю, если значение присутствуе
             if patronymic_filter:
                 queryset = queryset.filter(patronymic__icontains=patronymic_filter)
             if position_filter:
@@ -54,7 +53,15 @@ class EmployeeListView(ListView):
                 queryset = queryset.filter(classiness__icontains=classiness_filter)
             if family_status_filter:
                 queryset = queryset.filter(family_status__icontains=family_status_filter)
+
         return queryset
+
+    def get(self, request, *args, **kwargs):
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            self.object_list = self.get_queryset()
+            context = self.get_context_data()
+            return render(request, self.template_name, context)
+        return super().get(request, *args, **kwargs)
 
 
 class EmployeeDetailView(DetailView):
@@ -84,11 +91,22 @@ class EmployeeCreateView(CreateView):
         employee.user = user
 
         # Сохраняем сотрудника
+        employee.save()  # Не забудьте сохранить объект сотрудника
         messages.success(self.request, 'Сотрудник успешно добавлен.')
+
+        # Проверяем, является ли запрос AJAX
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'success': True, 'message': 'Сотрудник успешно добавлен!'})
+
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(self.request, 'Пожалуйста, исправьте ошибки в форме.')
+
+        # Проверяем, является ли запрос AJAX
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+
         return super().form_invalid(form)
 
 
@@ -128,7 +146,7 @@ class EmployeeSearchView(ListView):
     context_object_name = 'results'
 
     def get_queryset(self):
-        query = self.request.GET.get('surname')  # Измените 'id' на 'surname'
+        query = self.request.GET.get('surname')
         if query:
             return Employee.objects.filter(surname__icontains=query)
         return Employee.objects.none()

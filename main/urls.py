@@ -6,7 +6,7 @@ from .views import EmployeeListView, EmployeeDetailView, EmployeeCreateView, Emp
 
 urlpatterns = [
 
-    path('', EmployeeListView.as_view(), name='home'),
+    path('', EmployeeListView.as_view(), name='employee_list'),
     path('search/', EmployeeSearchView.as_view(), name='employee_search'),
     path('create/', EmployeeCreateView.as_view(), name='employee_create'),
     path('<slug:slug>/', EmployeeDetailView.as_view(), name='employee_detail'),

@@ -22,6 +22,30 @@
         {% endif %}
     </div><!-- /.page -->
 
+    <script>
+        // Обработчик события для очистки формы после успешного запроса
+        document.body.addEventListener('htmx:afterSwap', function(event) {
+            // Проверяем, что целевой элемент - это #search-results
+            if (event.detail.target.id === 'search-results') {
+                // Очищаем поле ввода
+                document.querySelector('#search-form input[name="surname"]').value = '';
+            }
+        });
+    </script>
+    <script>
+        // Обработчик события для очистки формы после успешного запроса
+        document.body.addEventListener('htmx:afterSwap', function(event) {
+            // Проверяем, что целевой элемент - это #employee_filtr
+            if (event.detail.target.id === 'employee_filtr') {
+                // Очищаем поля ввода формы фильтрации
+                const form = document.getElementById('filter-form');
+                const inputs = form.querySelectorAll('input[type="text"], input[type="date"], input[type="email"]');
+                inputs.forEach(input => {
+                    input.value = ''; // Очищаем значение каждого поля
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

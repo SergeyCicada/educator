@@ -1,6 +1,3 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
 <div class="container">
     <div class="content">
         <div class="content-header">
@@ -8,10 +5,13 @@
             <h1 class="title">Заполните форму добавления сотрудника</h1>
         </div>
         <div class="background">
-            <form method="post" enctype="multipart/form-data" class="form-append">
+            <form method="post" enctype="multipart/form-data" class="form-append"
+                  hx-post="{% url 'employee_create' %}"
+                  hx-target="#search-results"
+                  hx-swap="innerHTML">
                 {% csrf_token %}
 
-                <div id="response"></div> <!-- Место для отображения ошибок или сообщений -->
+                <div id="response"><!-- Место для отображения ошибок или сообщений -->
 
                 {% if form.non_field_errors %}
                     <div class="error">{{ form.non_field_errors }}</div>
@@ -152,7 +152,7 @@
                         <div class="error">{{ form.thumbnail.errors }}</div>
                     {% endif %}
                 </div>
-
+                </div>
                 <div class="form-group">
                     <button class="btn" type="submit">Добавить сотрудника</button>
                 </div>
@@ -161,4 +161,3 @@
         </div>
     </div>
 </div>
-{% endblock %}

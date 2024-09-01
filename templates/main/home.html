@@ -20,12 +20,12 @@
             </p>
         </div>
 
-        <form class="form" hx-get="/employees/search" hx-target="#search-results" hx-swap="innerHTML">
+        <form class="form" id="search-form" hx-get="/employees/search" hx-target="#search-results" hx-swap="innerHTML">
             <input class="textarea" name="surname" placeholder="Фамилия сотрудника" type="search">
             <button class="btn" type="submit">Поиск</button>
         </form>
         <p></p>
-        <form class="form" action="/employees" method="get">
+        <form class="form" hx-get="/employees" hx-target="#search-results" hx-swap="innerHTML">
             <button class="btn" type="submit">Все сотрудники</button>
         </form>
         <p></p>
