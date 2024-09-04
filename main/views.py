@@ -74,7 +74,7 @@ class EmployeeCreateView(CreateView):
     model = Employee
     template_name = 'main/employee_create.html'
     form_class = AddEmployeeForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('employee_list')
 
     def form_valid(self, form):
         username = form.cleaned_data.get('username')
