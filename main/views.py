@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .models import Employee
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class HomePageView(TemplateView):
@@ -70,11 +71,12 @@ class EmployeeDetailView(DetailView):
     context_object_name = 'employee'
 
 
-class EmployeeCreateView(CreateView):
+class EmployeeCreateView(LoginRequiredMixin, CreateView):
     model = Employee
     template_name = 'main/employee_create.html'
     form_class = AddEmployeeForm
     success_url = reverse_lazy('employee_list')
+    login_url = 'home'
 
     def form_valid(self, form):
         username = form.cleaned_data.get('username')

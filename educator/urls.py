@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name='home'),
     path('employees/', include('main.urls')),
+    path('', include('accounts.urls'))
 ]
 
 if settings.DEBUG:
