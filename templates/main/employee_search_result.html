@@ -1,22 +1,27 @@
 <div class="container">
-    <h1 class="title">Результаты поиска:</h1>
+    <div id="employee_detail">
+        <h1 class="title">Результаты поиска:</h1>
         {% if results %}
-        {% for employee in results %}
-            <div class="content">
-                <div class="content-header">
-                    <div class="background">
-                        <img src="{{ employee.thumbnail.url }}" alt="{{ employee.name }}" width="250"/>
-                        <p class="text-range">ФИО: {{ employee.surname }} {{ employee.name }} {{ employee.patronymic }}</p>
-                        <p class="text-range">Должность: {{ employee.position }}</p>
-                        <p class="text-range">Звание: {{ employee.rank }}</p>
-                        <form class="form" action="{{ employee.get_absolute_url }}" method="get">
-                            <button class="btn" type="submit">Подробнее</button>
-                        </form>
+            {% for employee in results %}
+                <div class="content">
+                    <div class="content-header">
+                        <div class="background">
+                            <img src="{{ employee.thumbnail.url }}" alt="{{ employee.name }}" width="250"/>
+                            <p class="text-range">ФИО: {{ employee.surname }} {{ employee.name }} {{ employee.patronymic }}</p>
+                            <p class="text-range">Должность: {{ employee.position }}</p>
+                            <p class="text-range">Звание: {{ employee.rank }}</p>
+                            <form class="form" action="{{ employee.get_absolute_url }}" method="get">
+                                <button class="btn" type="submit"
+                                        hx-get="{% url 'employee_detail' employee.slug %}"
+                                        hx-target="#employee_detail"
+                                        hx-swap="innerHTML">Подробнее</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
         {% else %}
             <h1 class="title">Нет сотрудников для отображения.</h1>
         {% endif %}
+    </div>
 </div>

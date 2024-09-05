@@ -11,8 +11,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class HomePageView(TemplateView):
+class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'main/home.html'
+    login_url = 'login'
 
 
 class EmployeeListView(LoginRequiredMixin, ListView):
@@ -20,7 +21,7 @@ class EmployeeListView(LoginRequiredMixin, ListView):
     template_name = 'employee_list.html'
     context_object_name = 'employees'
     paginate_by = 5
-
+    login_url = 'login'
 
     def get_context_data(self, **kwargs):
         # Получаем контекст от родительского класса
@@ -69,6 +70,7 @@ class EmployeeDetailView(LoginRequiredMixin, DetailView):
     model = Employee
     template_name = 'main/employee_detail.html'
     context_object_name = 'employee'
+    login_url = 'login'
 
 
 class EmployeeCreateView(LoginRequiredMixin, CreateView):
@@ -76,7 +78,7 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'main/employee_create.html'
     form_class = AddEmployeeForm
     success_url = reverse_lazy('employee_list')
-    login_url = 'home'
+    login_url = 'login'
 
     def form_valid(self, form):
         username = form.cleaned_data.get('username')
@@ -117,6 +119,7 @@ class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'main/employee_confirm_delete.html'  # Шаблон для подтверждения удаления
     context_object_name = 'employee'
     success_url = reverse_lazy('home')  # URL для перенаправления после успешного удаления
+    login_url = 'login'
 
     def get_object(self, queryset=None):
         # Получаем объект по слагу
@@ -130,7 +133,7 @@ class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
 
 class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     """
-    Представление: обновления материала на сайте
+    Представление: обновления сотрудника на сайте
     """
     model = Employee
     template_name = 'main/employee_update.html'
@@ -144,7 +147,7 @@ class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
 
 class EmployeeSearchView(LoginRequiredMixin, ListView):
     model = Employee
-    template_name = 'main/employee_search_result.html'  # Укажите ваш шаблон
+    template_name = 'main/employee_search_result.html'
     context_object_name = 'results'
 
     def get_queryset(self):

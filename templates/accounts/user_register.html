@@ -26,7 +26,7 @@
 
                     <div class="form-group">
                         <label for="password1" style="color: white;">Пароль:</label>
-                        <input class="textarea" name="password1" placeholder="Придумайте свой пароль" type="password">
+                        <input class="textarea" name="password1" placeholder="Придумайте пароль" type="password">
                         {% if form.password1.errors %}
                             <div class="error">{{ form.password1.errors }}</div>
                         {% endif %}
@@ -34,7 +34,7 @@
 
                     <div class="form-group">
                         <label for="password2" style="color: white;">Повторите пароль:</label>
-                        <input class="textarea" name="password2" placeholder="Повторите придуманный пароль" type="password">
+                        <input class="textarea" name="password2" placeholder="Повторите пароль" type="password">
                         {% if form.password2.errors %}
                             <div class="error">{{ form.password2.errors }}</div>
                         {% endif %}
