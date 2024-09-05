@@ -15,12 +15,12 @@ class HomePageView(TemplateView):
     template_name = 'main/home.html'
 
 
-class EmployeeListView(ListView):
+class EmployeeListView(LoginRequiredMixin, ListView):
     model = Employee
     template_name = 'employee_list.html'
     context_object_name = 'employees'
     paginate_by = 5
-    # queryset = Employee.objects.all()
+
 
     def get_context_data(self, **kwargs):
         # Получаем контекст от родительского класса
@@ -65,7 +65,7 @@ class EmployeeListView(ListView):
         return super().get(request, *args, **kwargs)
 
 
-class EmployeeDetailView(DetailView):
+class EmployeeDetailView(LoginRequiredMixin, DetailView):
     model = Employee
     template_name = 'main/employee_detail.html'
     context_object_name = 'employee'
@@ -112,7 +112,7 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
         return super().form_invalid(form)
 
 
-class EmployeeDeleteView(DeleteView):
+class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
     model = Employee
     template_name = 'main/employee_confirm_delete.html'  # Шаблон для подтверждения удаления
     context_object_name = 'employee'
@@ -128,7 +128,7 @@ class EmployeeDeleteView(DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-class EmployeeUpdateView(UpdateView):
+class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     """
     Представление: обновления материала на сайте
     """
@@ -142,7 +142,7 @@ class EmployeeUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class EmployeeSearchView(ListView):
+class EmployeeSearchView(LoginRequiredMixin, ListView):
     model = Employee
     template_name = 'main/employee_search_result.html'  # Укажите ваш шаблон
     context_object_name = 'results'

@@ -2,7 +2,7 @@
     <h1 class="title">Результаты поиска:</h1>
         {% if results %}
         {% for employee in results %}
-        <div class="content">
+            <div class="content">
                 <div class="content-header">
                     <div class="background">
                         <img src="{{ employee.thumbnail.url }}" alt="{{ employee.name }}" width="250"/>
@@ -17,6 +17,6 @@
             </div>
         {% endfor %}
         {% else %}
-        <h1 class="title">Нет сотрудников для отображения.</h1>
+            <h1 class="title">Нет сотрудников для отображения.</h1>
         {% endif %}
 </div>

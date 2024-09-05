@@ -1,13 +1,51 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h4>Регистрация на сайте</h4>
-  <form method="post" action="{% url 'register' %}">
+<div class="container">
+    <div class="content">
+        <div class="content-header">
+            <h2 class="subtitle">Регистрация</h2>
+            <h1 class="title">Заполните форму регистрации</h1>
+        </div>
+        <div class="background">
+            <form method="post" action="{% url 'register' %}" enctype="multipart/form-data" class="form-append">
                 {% csrf_token %}
-                {{ form.as_p }}
 
-                <div class="form-group">
-                    <button class="btn" type="submit">Зарегистрироваться</button>
+                <div id="response"><!-- Место для отображения ошибок или сообщений -->
+                    {% if form.non_field_errors %}
+                        <div class="error">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label for="username" style="color: white;">Логин:</label>
+                        <input class="textarea" name="username" placeholder="Придумайте свой логин" type="text" value="{{ form.username.value|default:'' }}">
+                        {% if form.username.errors %}
+                            <div class="error">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password1" style="color: white;">Пароль:</label>
+                        <input class="textarea" name="password1" placeholder="Придумайте свой пароль" type="password">
+                        {% if form.password1.errors %}
+                            <div class="error">{{ form.password1.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password2" style="color: white;">Повторите пароль:</label>
+                        <input class="textarea" name="password2" placeholder="Повторите придуманный пароль" type="password">
+                        {% if form.password2.errors %}
+                            <div class="error">{{ form.password2.errors }}</div>
+                        {% endif %}
+                    </div>
+
                 </div>
-  </form>
+                <div class="form-group">
+                    <button  class="btn" type="submit">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
