@@ -6,6 +6,9 @@ from services.utils import unique_slugify
 
 
 class Profile(models.Model):
+    """
+    Model for profile employee
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = models.SlugField(verbose_name='URL', max_length=255, blank=True, unique=True)
 
@@ -16,7 +19,7 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Сохранение полей модели при их отсутствии заполнения
+        Save fields model if their not filled
         """
 
         if not self.slug:
@@ -24,9 +27,7 @@ class Profile(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        """
-        Возвращение строки
-        """
+
         return self.user.username
 
     def get_absolute_url(self):

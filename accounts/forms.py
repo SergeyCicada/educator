@@ -7,14 +7,14 @@ class UserRegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         """
-        Обновление стилей формы регистрации
+        Updating style for form register
         """
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({"placeholder": "Придумайте свой логин"})
         self.fields['password1'].widget.attrs.update({"placeholder": "Придумайте свой пароль"})
         self.fields['password2'].widget.attrs.update({"placeholder": "Повторите придуманный пароль"})
         for field in self.fields:
-            self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
+            self.fields[field].widget.attrs.update({"autocomplete": "off"})
         self.fields['username'].error_messages = {
             'required': 'Это поле обязательно для заполнения.',
         }
@@ -28,12 +28,12 @@ class UserRegisterForm(UserCreationForm):
 
 class UserLoginForm(AuthenticationForm):
     """
-    Форма авторизации на сайте
+    Form for UserLogin
     """
 
     def __init__(self, *args, **kwargs):
         """
-        Обновление стилей формы авторизации
+        Updating style form for UserLogin
         """
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = 'Логин пользователя'

@@ -10,7 +10,7 @@ from .forms import UserLoginForm
 
 class UserRegisterView(SuccessMessageMixin, CreateView):
     """
-    reg
+    View for register User
     """
     form_class = UserRegisterForm
     success_url = reverse_lazy('home')
@@ -19,7 +19,7 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
 
 class UserLoginView(SuccessMessageMixin, LoginView):
     """
-    auth
+    View for login User
     """
     form_class = UserLoginForm
     template_name = 'accounts/user_login.html'
@@ -28,6 +28,6 @@ class UserLoginView(SuccessMessageMixin, LoginView):
 
 class UserLogoutView(LogoutView):
     """
-    logout
+    View for logout User
     """
     next_page = 'home'
