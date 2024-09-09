@@ -1,12 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Employee
-from datetime import datetime
 
 
 class AddEmployeeForm(forms.ModelForm):
-    username = forms.CharField(max_length=150, required=True, label='Имя пользователя')
-    password = forms.CharField(widget=forms.PasswordInput, required=True, label='Пароль')
+    """
+    Form for adding new employee
+    """
+    username = forms.CharField(max_length=150, required=True)
+    password = forms.CharField(required=True)
 
     class Meta:
         model = Employee
@@ -14,35 +16,41 @@ class AddEmployeeForm(forms.ModelForm):
         exclude = ['user']
 
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'surname': forms.TextInput(attrs={'class': 'form-control'}),
-            'patronymic': forms.TextInput(attrs={'class': 'form-control'}),
-            'thumbnail': forms.ClearableFileInput(attrs={'class': 'form-control'}),
-            'birthday': forms.DateInput(
-                attrs={'class': 'form-control', 'type': 'date'}  # Используем тип date
-            ),
-            'position': forms.TextInput(attrs={'class': 'form-control'}),
-            'rank': forms.TextInput(attrs={'class': 'form-control'}),
-            'classiness': forms.TextInput(attrs={'class': 'form-control'}),
-            'number': forms.TextInput(attrs={'class': 'form-control'}),
-            'badge': forms.TextInput(attrs={'class': 'form-control'}),
-            'family_status': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'date_came_service': forms.DateInput(
-                attrs={'class': 'form-control', 'type': 'date'}  # Используем тип date
-            ),
+            'username': forms.TextInput(),
+            'password': forms.PasswordInput(),
+            'name': forms.TextInput(),
+            'surname': forms.TextInput(),
+            'patronymic': forms.TextInput(),
+            'thumbnail': forms.ClearableFileInput(),
+            'birthday': forms.DateInput(),
+            'position': forms.TextInput(),
+            'rank': forms.TextInput(),
+            'classiness': forms.TextInput(),
+            'number': forms.TextInput(),
+            'badge': forms.TextInput(),
+            'family_status': forms.TextInput(),
+            'phone_number': forms.TextInput(),
+            'email': forms.EmailInput(),
+            'date_came_service': forms.DateInput(),
         }
 
     def clean_username(self):
+        """
+        Checks the uniqueness of the username.
+        If the username already exists in the database, a validation error is raised.
+        :return: username
+        """
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError("Этот логин уже занят. Пожалуйста, выберите другой.")
         return username
 
     def clean(self):
+        """
+        This method checks if the 'username' and 'password' fields are filled.
+        If either field is empty, a validation error is added to the respective field.
+        :return:
+        """
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
         password = cleaned_data.get('password')
@@ -56,33 +64,36 @@ class AddEmployeeForm(forms.ModelForm):
 
 
 class UpdateEmployeeForm(forms.ModelForm):
+    """
+    Form for updating employee
+    """
     class Meta:
         model = Employee
         fields = "__all__"
         exclude = ['user']
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'surname': forms.TextInput(attrs={'class': 'form-control'}),
-            'patronymic': forms.TextInput(attrs={'class': 'form-control'}),
-            'thumbnail': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(),
+            'surname': forms.TextInput(),
+            'patronymic': forms.TextInput(),
+            'thumbnail': forms.ClearableFileInput(),
             'birthday': forms.DateInput(),
-            'education':  forms.TextInput(attrs={'class': 'form-control'}),
-            'position': forms.TextInput(attrs={'class': 'form-control'}),
-            'rank': forms.TextInput(attrs={'class': 'form-control'}),
-            'classiness': forms.TextInput(attrs={'class': 'form-control'}),
-            'number': forms.TextInput(attrs={'class': 'form-control'}),
-            'badge': forms.TextInput(attrs={'class': 'form-control'}),
-            'family_status': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form'}),
+            'education':  forms.TextInput(),
+            'position': forms.TextInput(),
+            'rank': forms.TextInput(),
+            'classiness': forms.TextInput(),
+            'number': forms.TextInput(),
+            'badge': forms.TextInput(),
+            'family_status': forms.TextInput(),
+            'phone_number': forms.TextInput(),
+            'email': forms.EmailInput(),
             'date_came_service': forms.DateInput(),
         }
 
 
 class EmployeeFilterForm(forms.Form):
-    position = forms.CharField(required=False, label='Должность', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    rank = forms.CharField(required=False, label='Звание', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    education = forms.CharField(required=False, label='Образование', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    classiness = forms.CharField(required=False, label='Классность', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    family_status = forms.CharField(required=False, label='Семейное положение', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    position = forms.CharField(required=False)
+    rank = forms.CharField(required=False)
+    education = forms.CharField(required=False)
+    classiness = forms.CharField(required=False)
+    family_status = forms.CharField(required=False)

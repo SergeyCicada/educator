@@ -12,24 +12,22 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class HomePageView(LoginRequiredMixin, TemplateView):
+    """
+    View for path('', HomePageView.as_view(), name='home'),
+    """
     template_name = 'main/home.html'
     login_url = 'login'
 
 
 class EmployeeListView(LoginRequiredMixin, ListView):
+    """
+    View for path('', EmployeeListView.as_view(), name='employee_list')
+    """
     model = Employee
     template_name = 'employee_list.html'
     context_object_name = 'employees'
     paginate_by = 5
     login_url = 'login'
-
-    def get_context_data(self, **kwargs):
-        # Получаем контекст от родительского класса
-        context = super().get_context_data(**kwargs)
-        # Добавляем переменную show_footer в контекст
-        context['show_footer'] = False  # Отключаем футер для этого представления
-        context['form'] = EmployeeFilterForm(self.request.GET)
-        return context
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -59,6 +57,7 @@ class EmployeeListView(LoginRequiredMixin, ListView):
         return queryset
 
     def get(self, request, *args, **kwargs):
+        """If the request is an AJAX request, it returns the rendered template."""
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             self.object_list = self.get_queryset()
             context = self.get_context_data()
@@ -67,6 +66,9 @@ class EmployeeListView(LoginRequiredMixin, ListView):
 
 
 class EmployeeDetailView(LoginRequiredMixin, DetailView):
+    """
+    View for path('<slug:slug>/', EmployeeDetailView.as_view(), name='employee_detail'),
+    """
     model = Employee
     template_name = 'main/employee_detail.html'
     context_object_name = 'employee'
@@ -74,6 +76,9 @@ class EmployeeDetailView(LoginRequiredMixin, DetailView):
 
 
 class EmployeeCreateView(LoginRequiredMixin, CreateView):
+    """
+    View for path('create/', EmployeeCreateView.as_view(), name='employee_create'),
+    """
     model = Employee
     template_name = 'main/employee_create.html'
     form_class = AddEmployeeForm
@@ -88,33 +93,26 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
             messages.error(self.request, 'Имя пользователя и пароль обязательны.')
             return self.form_invalid(form)
 
-        # Создаем объект User
         user = User.objects.create_user(username=username, password=password)
 
         employee = form.save(commit=False)
         employee.user = user
 
-        # Сохраняем сотрудника
-        employee.save()  # Не забудьте сохранить объект сотрудника
+        employee.save()
         messages.success(self.request, 'Сотрудник успешно добавлен.')
-
-        # Проверяем, является ли запрос AJAX
-        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            return JsonResponse({'success': True, 'message': 'Сотрудник успешно добавлен!'})
 
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(self.request, 'Пожалуйста, исправьте ошибки в форме.')
 
-        # Проверяем, является ли запрос AJAX
-        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
-
         return super().form_invalid(form)
 
 
 class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    View for path('<slug:slug>/delete/', EmployeeDeleteView.as_view(), name='employee_delete'),,
+    """
     model = Employee
     template_name = 'main/employee_confirm_delete.html'  # Шаблон для подтверждения удаления
     context_object_name = 'employee'
@@ -122,18 +120,16 @@ class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
     login_url = 'login'
 
     def get_object(self, queryset=None):
-        # Получаем объект по слагу
         slug = self.kwargs.get('slug')
         return get_object_or_404(Employee, slug=slug)
 
     def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Сотрудник успешно удален.')
         return super().delete(request, *args, **kwargs)
 
 
 class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     """
-    Представление: обновления сотрудника на сайте
+    View for  path('<slug:slug>/update/', EmployeeUpdateView.as_view(), name='employee_update')
     """
     model = Employee
     template_name = 'main/employee_update.html'
@@ -146,6 +142,9 @@ class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class EmployeeSearchView(LoginRequiredMixin, ListView):
+    """
+    View for EmployeeSearch path('search/', EmployeeSearchView.as_view(), name='employee_search'),
+    """
     model = Employee
     template_name = 'main/employee_search_result.html'
     context_object_name = 'results'

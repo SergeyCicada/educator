@@ -16,32 +16,28 @@
         {% block content %}
         {% endblock %}
 
-        <!-- Footer -->
-        {% if show_footer %}
-            {% include 'footer.html' %}
-        {% endif %}
     </div><!-- /.page -->
 
     <script>
-        // Обработчик события для очистки формы после успешного запроса
+        // Event handler to clear the form after a successful request
         document.body.addEventListener('htmx:afterSwap', function(event) {
-            // Проверяем, что целевой элемент - это #search-results
+            // Check if the target element is #search-results
             if (event.detail.target.id === 'search-results') {
-                // Очищаем поле ввода
+                // Clear the input field
                 document.querySelector('#search-form input[name="surname"]').value = '';
             }
         });
     </script>
     <script>
-        // Обработчик события для очистки формы после успешного запроса
+        // Event handler to clear the filtering form after a successful request
         document.body.addEventListener('htmx:afterSwap', function(event) {
-            // Проверяем, что целевой элемент - это #employee_filtr
+            // Check if the target element is #employee_filtr
             if (event.detail.target.id === 'employee_filtr') {
-                // Очищаем поля ввода формы фильтрации
+                // Clear the input fields of the filtering form
                 const form = document.getElementById('filter-form');
                 const inputs = form.querySelectorAll('input[type="text"], input[type="date"], input[type="email"]');
                 inputs.forEach(input => {
-                    input.value = ''; // Очищаем значение каждого поля
+                    input.value = ''; // Clear the value of each field
                 });
             }
         });
