@@ -13,7 +13,7 @@ class EmployeeViewTests(TestCase):
     """
     Tests for views
     """
-    def test_book_list_view(self):
+    def test_employee_list_view(self):
         # Create user for first employee
         user_1 = User.objects.create_user(
             username='ivanov',

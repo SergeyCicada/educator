@@ -92,6 +92,9 @@ class UpdateEmployeeForm(forms.ModelForm):
 
 
 class EmployeeFilterForm(forms.Form):
+    """
+    Filter for search employee in employee list
+    """
     position = forms.CharField(required=False)
     rank = forms.CharField(required=False)
     education = forms.CharField(required=False)

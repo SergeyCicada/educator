@@ -77,14 +77,12 @@ class Employee(models.Model):
             raise ValidationError(
                 "Пожалуйста, заполните все обязательные поля: имя, фамилия, дата рождения и должность.")
 
-        # Форматирование даты рождения в строку
         if self.birthday:
             birthday_str = self.birthday.strftime('%Y-%m-%d')
         else:
             birthday_str = 'unknown'
 
-        # Создание слага из фамилии, даты рождения и UUID
-        unique_id = uuid.uuid4()  # Генерация уникального идентификатора
+        unique_id = uuid.uuid4()
         self.slug = slugify(f"{self.surname}-{birthday_str}-{unique_id}")
 
-        super().save(*args, **kwargs)  # Сохранение объекта
+        super().save(*args, **kwargs)

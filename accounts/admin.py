@@ -6,7 +6,7 @@ from .models import Profile
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     """
-    Админ-панель модели профиля
+    Admin-panel model profile
     """
     list_display = ('user', 'slug')
     list_display_links = ('user', 'slug')

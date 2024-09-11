@@ -32,6 +32,6 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         """
-        Ссылка на профиль
+        Link profile
         """
         return reverse('profile_detail', kwargs={'slug': self.slug})

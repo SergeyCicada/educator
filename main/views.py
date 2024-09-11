@@ -4,7 +4,6 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from .forms import AddEmployeeForm, UpdateEmployeeForm, EmployeeFilterForm
 from django.views.generic.edit import CreateView
-from django.http import JsonResponse
 from django.contrib import messages
 from .models import Employee
 from django.contrib.auth.models import User
