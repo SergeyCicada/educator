@@ -18,7 +18,7 @@
                 {% endif %}
                 </div>
                 <div class="form-group">
-                    <label for="username" style="color: white;">Логин:</label>
+                    <label style="color: white;">Логин:</label>
                     <input class="textarea" name="username" placeholder="Введите логин" type="text" value="{{ form.username.value|default:'' }}">
                     {% if form.username.errors %}
                         <div class="error">{{ form.username.errors }}</div>
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password" style="color: white;">Пароль:</label>
+                    <label style="color: white;">Пароль:</label>
                     <input class="textarea" name="password" placeholder="Введите пароль" type="password" value="{{ form.password.value|default:'' }}">
                     {% if form.password.errors %}
                         <div class="error">{{ form.password.errors }}</div>
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="surname" style="color: white;">Фамилия:</label>
+                    <label style="color: white;">Фамилия:</label>
                     <input class="textarea" name="surname" placeholder="Введите фамилию" type="text" value="{{ form.surname.value|default:'' }}">
                     {% if form.surname.errors %}
                         <div class="error">{{ form.surname.errors }}</div>
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name" style="color: white;">Имя:</label>
+                    <label style="color: white;">Имя:</label>
                     <input class="textarea" name="name" placeholder="Введите имя" type="text" value="{{ form.name.value|default:'' }}">
                     {% if form.name.errors %}
                         <div class="error">{{ form.name.errors }}</div>
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="patronymic" style="color: white;">Отчество:</label>
+                    <label style="color: white;">Отчество:</label>
                     <input class="textarea" name="patronymic" placeholder="Введите отчество" type="text" value="{{ form.patronymic.value|default:'' }}">
                     {% if form.patronymic.errors %}
                         <div class="error">{{ form.patronymic.errors }}</div>
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="education" style="color: white;">Образование:</label>
+                    <label style="color: white;">Образование:</label>
                     <input class="textarea" name="education" placeholder="Образование" type="text" value="{{ form.education.value|default:'' }}">
                     {% if form.education.errors %}
                         <div class="error">{{ form.education.errors }}</div>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="birthday" style="color: white;">Дата рождения:</label>
+                    <label style="color: white;">Дата рождения:</label>
                     <input class="textarea" name="birthday" placeholder="Выберите дату рождения" type="date" value="{{ form.birthday.value|default:'' }}">
                     {% if form.birthday.errors %}
                         <div class="error">{{ form.birthday.errors }}</div>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="position" style="color: white;">Должность:</label>
+                    <label style="color: white;">Должность:</label>
                     <input class="textarea" name="position" placeholder="Введите должность" type="text" value="{{ form.position.value|default:'' }}">
                     {% if form.position.errors %}
                         <div class="error">{{ form.position.errors }}</div>
@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="form-group" style="margin-bottom: 30px;">
-                    <label for="rank" style="color: white;">Звание:</label>
+                    <label style="color: white;">Звание:</label>
                     <input class="textarea" name="rank" placeholder="Введите звание" type="text" value="{{ form.rank.value|default:'' }}">
                     {% if form.rank.errors %}
                         <div class="error">{{ form.rank.errors }}</div>
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="form-group" style="margin-bottom: 30px;">
-                    <label for="classiness" style="color: white;">Классность:</label>
+                    <label style="color: white;">Классность:</label>
                     <input class="textarea" name="classiness" placeholder="Введите классность" type="text" value="{{ form.classiness.value|default:'' }}">
                     {% if form.classiness.errors %}
                         <div class="error">{{ form.classiness.errors }}</div>
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="number" style="color: white;">Номер:</label>
+                    <label style="color: white;">Номер:</label>
                     <input class="textarea" name="number" placeholder="Введите номер" type="text" value="{{ form.number.value|default:'' }}">
                     {% if form.number.errors %}
                         <div class="error">{{ form.number.errors }}</div>
@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="badge" style="color: white;">Значок:</label>
+                    <label style="color: white;">Значок:</label>
                     <input class="textarea" name="badge" placeholder="Введите значок" type="text" value="{{ form.badge.value|default:'' }}">
                     {% if form.badge.errors %}
                         <div class="error">{{ form.badge.errors }}</div>
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="family_status" style="color: white;">Семейное положение:</label>
+                    <label style="color: white;">Семейное положение:</label>
                     <input class="textarea" name="family_status" placeholder="Введите семейное положение" type="text" value="{{ form.family_status.value|default:'' }}">
                     {% if form.family_status.errors %}
                         <div class="error">{{ form.family_status.errors }}</div>
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="phone_number" style="color: white;">Номер телефона:</label>
+                    <label style="color: white;">Номер телефона:</label>
                     <input class="textarea" name="phone_number" placeholder="Введите номер телефона" type="text" value="{{ form.phone_number.value|default:'' }}">
                     {% if form.phone_number.errors %}
                         <div class="error">{{ form.phone_number.errors }}</div>
@@ -130,7 +130,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="email" style="color: white;">Электронная почта:</label>
+                    <label style="color: white;">Электронная почта:</label>
                     <input class="textarea" name="email" placeholder="Введите электронную почту" type="email" value="{{ form.email.value|default:'' }}">
                     {% if form.email.errors %}
                         <div class="error">{{ form.email.errors }}</div>
@@ -138,7 +138,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="date_came_service" style="color: white;">Дата поступления на службу:</label>
+                    <label style="color: white;">Дата поступления на службу:</label>
                     <input class="textarea" name="date_came_service" placeholder="Выберите дату поступления" type="date" value="{{ form.date_came_service.value|default:'' }}">
                     {% if form.date_came_service.errors %}
                         <div class="error">{{ form.date_came_service.errors }}</div>
@@ -146,7 +146,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="thumbnail" style="color: white;">Изображение (URL):</label>
+                    <label style="color: white;">Изображение (URL):</label>
                     <input class="textarea" name="thumbnail" placeholder="Выберите изображение" type="file" accept="image/*">
                     {% if form.thumbnail.errors %}
                         <div class="error">{{ form.thumbnail.errors }}</div>
@@ -161,4 +161,3 @@
         </div>
     </div>
 </div>
-

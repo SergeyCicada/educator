@@ -1,77 +1,77 @@
 <div class="container">
     <div id="employee_detail">
-    <div id="employee_filtr">
-    <div id="employee-list">
-    <h1 class="title">Список всех сотрудников</h1>
-    <!-- Форма фильтрации -->
+        <div id="employee_filtr">
+            <div id="employee-list">
+                <h1 class="title">Список всех сотрудников</h1>
+                <!-- Форма фильтрации -->
 
-        <div class="background">
-            <form method="get" action="{% url 'employee_list' %}" class="form-append"
-                  hx-get="{% url 'employee_list' %}"
-                  hx-target="#employee_filtr"
-                  hx-swap="innerHTML">
-                <div id="response"></div> <!-- Место для отображения ошибок или сообщений -->
+                <div class="background">
+                    <form method="get" action="{% url 'employee_list' %}" class="form-append"
+                          hx-get="{% url 'employee_list' %}"
+                          hx-target="#employee_filtr"
+                          hx-swap="innerHTML">
+                        <div id="response"></div> <!-- Место для отображения ошибок или сообщений -->
 
-                {% csrf_token %}
+                        {% csrf_token %}
 
-                <div class="form-group">
-                    <label for="position" style="color: white;">Должность:</label>
-                    <input class="textarea" name="position" placeholder="Введите должность" type="text" value="{{ request.GET.position|default:'' }}">
+                        <div class="form-group">
+                            <label style="color: white;">Должность:</label>
+                            <input class="textarea" name="position" placeholder="Введите должность" type="text" value="{{ request.GET.position|default:'' }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label style="color: white;">Звание:</label>
+                            <input class="textarea" name="rank" placeholder="Введите звание" type="text" value="{{ request.GET.rank|default:'' }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label style="color: white;">Образование:</label>
+                            <input class="textarea" name="education" placeholder="Введите образование" type="text" value="{{ request.GET.education|default:'' }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label style="color: white;">Классность:</label>
+                            <input class="textarea" name="classiness" placeholder="Введите классность" type="text" value="{{ request.GET.classiness|default:'' }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label style="color: white;">Семейное положение:</label>
+                            <input class="textarea" name="family_status" placeholder="Введите семейное положение" type="text" value="{{ request.GET.family_status|default:'' }}">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn" type="submit">Фильтровать</button>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="form-group">
-                    <label for="rank" style="color: white;">Звание:</label>
-                    <input class="textarea" name="rank" placeholder="Введите звание" type="text" value="{{ request.GET.rank|default:'' }}">
-                </div>
+                <!-- Список сотрудников -->
 
-                <div class="form-group">
-                    <label for="education" style="color: white;">Образование:</label>
-                    <input class="textarea" name="education" placeholder="Введите образование" type="text" value="{{ request.GET.education|default:'' }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="classiness" style="color: white;">Классность:</label>
-                    <input class="textarea" name="classiness" placeholder="Введите классность" type="text" value="{{ request.GET.classiness|default:'' }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="family_status" style="color: white;">Семейное положение:</label>
-                    <input class="textarea" name="family_status" placeholder="Введите семейное положение" type="text" value="{{ request.GET.family_status|default:'' }}">
-                </div>
-
-                <div class="form-group">
-                    <button class="btn" type="submit">Фильтровать</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Список сотрудников -->
-
-            {% if employees %}
-                {% for employee in employees %}
-                    <div class="content">
-                        <div class="content-header">
-                            <div class="background">
-                                <img src="{{ employee.thumbnail.url }}" alt="{{ employee.name }}" width="250"/>
-                                <p class="text-range">ФИО: {{ employee.surname }} {{ employee.name }} {{ employee.patronymic }}</p>
-                                <p class="text-range">Должность: {{ employee.position }}</p>
-                                <p class="text-range">Звание: {{ employee.rank }}</p>
-                                <form class="form" action="{{ employee.get_absolute_url }}" method="get">
-                                    <button class="btn" type="submit"
-                                            hx-get="{% url 'employee_detail' employee.slug %}"
-                                            hx-target="#employee_detail"
-                                            hx-swap="innerHTML">Подробнее</button>
-                                </form>
+                {% if employees %}
+                    {% for employee in employees %}
+                        <div class="content">
+                            <div class="content-header">
+                                <div class="background">
+                                    <img src="{{ employee.thumbnail.url }}" alt="{{ employee.name }}" width="250"/>
+                                    <p class="text-range">ФИО: {{ employee.surname }} {{ employee.name }} {{ employee.patronymic }}</p>
+                                    <p class="text-range">Должность: {{ employee.position }}</p>
+                                    <p class="text-range">Звание: {{ employee.rank }}</p>
+                                    <form class="form" action="{{ employee.get_absolute_url }}" method="get">
+                                        <button class="btn" type="submit"
+                                                hx-get="{% url 'employee_detail' employee.slug %}"
+                                                hx-target="#employee_detail"
+                                                hx-swap="innerHTML">Подробнее</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-                {% include 'pagination.html' %}
-            {% else %}
-                <h1 class="title">Результаты фильтрации:</h1>
-                <h1 class="title">Нет сотрудников для отображения.</h1>
-            {% endif %}
-        </div>
-        </div>
+                    {% endfor %}
+                    {% include 'pagination.html' %}
+                {% else %}
+                    <h1 class="title">Результаты фильтрации:</h1>
+                    <h1 class="title">Нет сотрудников для отображения.</h1>
+                {% endif %}
+            </div>
         </div>
     </div>
+</div>
