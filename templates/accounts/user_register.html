@@ -7,7 +7,7 @@
             <h2 class="subtitle">Регистрация</h2>
             <h1 class="title">Заполните форму регистрации</h1>
         </div>
-        <div class="background">
+        <div class="background-register">
             <form method="post" action="{% url 'register' %}" enctype="multipart/form-data" class="form-append">
                 {% csrf_token %}
 
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password1" style="color: white;">Пароль:</label>
+                        <label style="color: white;">Пароль:</label>
                         <input class="textarea" name="password1" placeholder="Придумайте пароль" type="password">
                         {% if form.password1.errors %}
                             <div class="error">{{ form.password1.errors }}</div>
@@ -33,12 +33,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password2" style="color: white;">Повторите пароль:</label>
+                        <label style="color: white;">Повторите пароль:</label>
                         <input class="textarea" name="password2" placeholder="Повторите пароль" type="password">
                         {% if form.password2.errors %}
                             <div class="error">{{ form.password2.errors }}</div>
                         {% endif %}
                     </div>
+                    <div class="form-group">
+                        <label  style="color: white;">Recaptcha:</label>
+                        {{ form.recaptcha }}
+                        {% if form.recaptcha.errors %}
+                            <div class="error">{{ form.recaptcha.errors }}</div>
+                        {% endif %}
+                     </div>
 
                 </div>
                 <div class="form-group">

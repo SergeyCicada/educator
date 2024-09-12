@@ -1,8 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django_recaptcha.fields import ReCaptchaField
 
 
 class UserRegisterForm(UserCreationForm):
+    """
+    Form register for user
+    """
+    recaptcha = ReCaptchaField()
     fields = UserCreationForm.Meta.fields
 
     def __init__(self, *args, **kwargs):
@@ -28,8 +33,9 @@ class UserRegisterForm(UserCreationForm):
 
 class UserLoginForm(AuthenticationForm):
     """
-    Form for UserLogin
+    Form login for user
     """
+    recaptcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         """
@@ -41,12 +47,14 @@ class UserLoginForm(AuthenticationForm):
         self.fields['username'].label = 'Логин'
         for field in self.fields:
             self.fields[field].widget.attrs.update({
-                'class': 'form-control',
                 'autocomplete': 'off'
             })
         self.fields['username'].error_messages = {
             'required': 'Это поле обязательно для заполнения.',
         }
         self.fields['password'].error_messages = {
+            'required': 'Это поле обязательно для заполнения.',
+        }
+        self.fields['recaptcha'].error_messages = {
             'required': 'Это поле обязательно для заполнения.',
         }

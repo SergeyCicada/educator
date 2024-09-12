@@ -145,9 +145,9 @@ p {
 /* Button ==================== */
 .btn {
     display: inline-block;
-    padding: 10px 35px;
+    padding: 12px 40px; /* Увеличенные отступы */
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 1.1rem; /* Увеличенный размер шрифта */
     color: #fff;
     font-weight: 500;
     text-decoration: none;
@@ -155,11 +155,12 @@ p {
     border: 0;
     background-color: #3CB371;
     border-radius: 5px;
-    transition: background .4s linear;
+    transition: background .4s linear, transform 0.2s; /* Плавный переход */
 }
 
 .btn:hover {
     background-color: #2E8B57;
+    transform: scale(1.05); /* Увеличение при наведении */
 }
 
 .btn-full {
@@ -199,11 +200,15 @@ p {
 
 .form-append {
     column-width: 200px;
+    flex-wrap: wrap;
     column-gap: 20px;
+
 }
 
 .form-group {
     margin-bottom: 20px;
+    clear: left;
+    float: left;
 }
 
 .input,
@@ -215,11 +220,17 @@ p {
     font-family: inherit;
     font-size: 1rem;
     color: #fff;
-    border: 0;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Добавьте границу */
     background-color: rgba(255, 255, 255, .1);
     border-radius: 5px;
+    outline: none; /* Уберите стандартный контур */
 }
 
+.input:focus,
+.textarea:focus {
+    border-color: #3CB371; /* Измените цвет границы при фокусе */
+    background-color: rgba(255, 255, 255, 0.2); /* Измените фон при фокусе */
+}
 
 .textarea::placeholder {
     color: rgba(255, 255, 255, .6);
@@ -240,6 +251,15 @@ p {
 .background {
     display: block;
     width: 80%;
+    padding: 10px 10px;
+    margin-bottom: 1rem;
+    border: 0;
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 5px;
+}
+.background-register {
+    display: block;
+    width: 105%;
     padding: 10px 10px;
     margin-bottom: 1rem;
     border: 0;

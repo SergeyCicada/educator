@@ -7,7 +7,7 @@
             <h2 class="subtitle">Авторизация</h2>
             <h1 class="title">Введите свои данные для входа</h1>
         </div>
-        <div class="background">
+        <div class="background-register">
             <form method="post" action="{% url 'login' %}" enctype="multipart/form-data" class="form-append">
                 {% csrf_token %}
 
@@ -17,7 +17,7 @@
                     {% endif %}
 
                     <div class="form-group">
-                        <label for="username" style="color: white;">Логин:</label>
+                        <label style="color: white;">Логин:</label>
                         <input class="textarea" name="username" placeholder="Логин пользователя" type="text" value="{{ form.username.value|default:'' }}">
                         {% if form.username.errors %}
                             <div class="error">{{ form.username.errors }}</div>
@@ -25,22 +25,29 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password" style="color: white;">Пароль:</label>
+                        <label  style="color: white;">Пароль:</label>
                         <input class="textarea" name="password" placeholder="Пароль пользователя" type="password">
                         {% if form.password.errors %}
                             <div class="error">{{ form.password.errors }}</div>
                         {% endif %}
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+
+                     <div class="form-group">
+                        <label  style="color: white;">Recaptcha:</label>
+                        {{ form.recaptcha }}
+                        {% if form.recaptcha.errors %}
+                            <div class="error">{{ form.recaptcha.errors }}</div>
+                        {% endif %}
+                     </div>
                 </div>
                     <div class="form-group">
                         <button class="btn" type="submit">Войти</button>
                     </div>
             </form>
+
         </div>
     </div>
 </div>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 {% endblock %}
