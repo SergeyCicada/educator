@@ -8,6 +8,14 @@
             <h1 class="title">Введите свои данные для входа</h1>
         </div>
         <div class="background-register">
+             <a href="{% url 'social:begin' 'github' %}">
+                <img src="{% static 'images/github.png' %}" alt="Log In with GitHub" width="30">
+            </a>
+
+             <a href="{% url 'social:begin' 'google-oauth2' %}">
+                <img src="{% static 'images/google.png' %}" alt="Log In with Google" width="30">
+             </a>
+
             <form method="post" action="{% url 'login' %}" enctype="multipart/form-data" class="form-append">
                 {% csrf_token %}
 
