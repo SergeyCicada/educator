@@ -37,6 +37,23 @@ LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv('GOOGLE_OAUTH2_KEY'))
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv('GOOGLE_OAUTH2_SECRET'))
 
+# DRF conf
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Employee API Project",
+    "DESCRIPTION": "Employee project for BorderControl",
+    "VERSION": "1.0.0",
+    # OTHER SETTINGS
+}
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -55,8 +72,10 @@ INSTALLED_APPS = [
     'social_django',
     'django_recaptcha',
     'main',
-    'accounts'
-
+    'accounts',
+    'rest_framework',
+    'educator_api.apps.EducatorApiConfig',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -159,3 +178,5 @@ AUTHENTICATION_BACKENDS = (
 
     'django.contrib.auth.backends.ModelBackend',
 )
+
+

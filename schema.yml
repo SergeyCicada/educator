@@ -1,0 +1,333 @@
+openapi: 3.0.3
+info:
+  title: Employee API Project
+  version: 1.0.0
+  description: Employee project for BorderControl
+paths:
+  /api/:
+    get:
+      operationId: root_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeList'
+          description: ''
+    post:
+      operationId: root_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+  /api/{id}/:
+    get:
+      operationId: root_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+    put:
+      operationId: root_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+    patch:
+      operationId: root_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+    delete:
+      operationId: root_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Employee:
+      type: object
+      properties:
+        user:
+          type: integer
+        name:
+          type: string
+          maxLength: 100
+        surname:
+          type: string
+          maxLength: 100
+        patronymic:
+          type: string
+          nullable: true
+          maxLength: 100
+        slug:
+          type: string
+          title: URL
+          maxLength: 255
+          pattern: ^[-a-zA-Z0-9_]+$
+        thumbnail:
+          type: string
+          format: uri
+          title: Изображение записи
+          pattern: (?:png|jpg|webp|jpeg|gif)$
+        birthday:
+          type: string
+          format: date
+        education:
+          type: string
+          maxLength: 255
+        position:
+          type: string
+          maxLength: 100
+        rank:
+          type: string
+          nullable: true
+          maxLength: 50
+        classiness:
+          type: string
+          nullable: true
+          maxLength: 50
+        number:
+          type: string
+          nullable: true
+          maxLength: 50
+        badge:
+          type: string
+          nullable: true
+          maxLength: 50
+        family_status:
+          type: string
+          nullable: true
+          maxLength: 50
+        phone_number:
+          type: string
+          nullable: true
+          maxLength: 15
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        date_came_service:
+          type: string
+          format: date
+          nullable: true
+      required:
+      - birthday
+      - name
+      - position
+      - surname
+      - user
+    PaginatedEmployeeList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee'
+    PatchedEmployee:
+      type: object
+      properties:
+        user:
+          type: integer
+        name:
+          type: string
+          maxLength: 100
+        surname:
+          type: string
+          maxLength: 100
+        patronymic:
+          type: string
+          nullable: true
+          maxLength: 100
+        slug:
+          type: string
+          title: URL
+          maxLength: 255
+          pattern: ^[-a-zA-Z0-9_]+$
+        thumbnail:
+          type: string
+          format: uri
+          title: Изображение записи
+          pattern: (?:png|jpg|webp|jpeg|gif)$
+        birthday:
+          type: string
+          format: date
+        education:
+          type: string
+          maxLength: 255
+        position:
+          type: string
+          maxLength: 100
+        rank:
+          type: string
+          nullable: true
+          maxLength: 50
+        classiness:
+          type: string
+          nullable: true
+          maxLength: 50
+        number:
+          type: string
+          nullable: true
+          maxLength: 50
+        badge:
+          type: string
+          nullable: true
+          maxLength: 50
+        family_status:
+          type: string
+          nullable: true
+          maxLength: 50
+        phone_number:
+          type: string
+          nullable: true
+          maxLength: 15
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        date_came_service:
+          type: string
+          format: date
+          nullable: true
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

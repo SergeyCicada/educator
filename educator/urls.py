@@ -11,6 +11,7 @@ urlpatterns = [
     path('employees/', include('main.urls')),
     path('', include('accounts.urls')),
     re_path(r'^oauth/', include('social_django.urls', namespace='social')),
+    path("api/", include("educator_api.urls")),
     ]
 
 
