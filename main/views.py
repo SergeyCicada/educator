@@ -23,7 +23,7 @@ class EmployeeListView(LoginRequiredMixin, ListView):
     View for path('', EmployeeListView.as_view(), name='employee_list')
     """
     model = Employee
-    template_name = 'employee_list.html'
+    template_name = 'main/employee_list.html'
     context_object_name = 'employees'
     paginate_by = 5
     login_url = 'login'

@@ -2,17 +2,10 @@ from django.test import TestCase, SimpleTestCase
 from django.urls import reverse
 from django.urls.base import resolve
 
-from django.contrib.auth.models import User
-
-from .models import Employee
-from .views import EmployeeListView, EmployeeSearchView, EmployeeCreateView, EmployeeDetailView, EmployeeDeleteView, \
+from main.views import EmployeeListView, EmployeeSearchView, EmployeeCreateView, EmployeeDetailView, EmployeeDeleteView, \
     EmployeeUpdateView
-from .forms import AddEmployeeForm
-
-
-from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Employee
+from main.models import Employee
 from django.core.exceptions import ValidationError
 from datetime import date
 
@@ -59,32 +52,83 @@ class EmployeeURLsTest(TestCase):
 
     def test_employee_detail_url(self):
         # Test for get status code 200 (employee_detail)
-        response = self.client.get(reverse('employee_detail'))
+        employee = Employee.objects.create(
+            user=self.user,
+            name='Иван',
+            surname='Иванов',
+            birthday=date(1990, 1, 1),
+            position='Менеджер'
+        )
+        slug_value = employee.slug
+        response = self.client.get(reverse('employee_detail', kwargs={'slug': slug_value}))
         self.assertEqual(response.status_code, 200)
 
     def test_root_url_resolves_to_employee_detail_view(self):
         # Test for matching url and view employee_detail
-        found = resolve('/employees/<slug:slug>/')
+        employee = Employee.objects.create(
+            user=self.user,
+            name='Иван',
+            surname='Иванов',
+            birthday=date(1990, 1, 1),
+            position='Менеджер'
+        )
+        slug_value = employee.slug
+        url = f'/employees/{slug_value}/'
+        found = resolve(url)
         self.assertEqual(found.func.view_class, EmployeeDetailView)
 
     def test_employee_employee_delete(self):
         # Test for get status code 200 (employee_delete)
-        response = self.client.get(reverse('employee_delete'))
+        employee = Employee.objects.create(
+            user=self.user,
+            name='Иван',
+            surname='Иванов',
+            birthday=date(1990, 1, 1),
+            position='Менеджер'
+        )
+        slug_value = employee.slug
+        response = self.client.get(reverse('employee_delete', kwargs={'slug': slug_value}))
         self.assertEqual(response.status_code, 200)
 
     def test_root_url_resolves_to_employee_delete_view(self):
         # Test for matching url and view employee_delete
-        found = resolve('/employees/<slug:slug>/delete/')
+        employee = Employee.objects.create(
+            user=self.user,
+            name='Иван',
+            surname='Иванов',
+            birthday=date(1990, 1, 1),
+            position='Менеджер'
+        )
+        slug_value = employee.slug
+        url = f'/employees/{slug_value}/delete/'
+        found = resolve(url)
         self.assertEqual(found.func.view_class, EmployeeDeleteView)
 
     def test_employee_update_url(self):
         # Test for get status code 200 (employee_update)
-        response = self.client.get(reverse('employee_update'))
+        employee = Employee.objects.create(
+            user=self.user,
+            name='Иван',
+            surname='Иванов',
+            birthday=date(1990, 1, 1),
+            position='Менеджер'
+        )
+        slug_value = employee.slug
+        response = self.client.get(reverse('employee_update', kwargs={'slug': slug_value}))
         self.assertEqual(response.status_code, 200)
 
     def test_root_url_resolves_to_employee_update_view(self):
         # Test for matching url and view employee_update
-        found = resolve('/employees/create/')
+        employee = Employee.objects.create(
+            user=self.user,
+            name='Иван',
+            surname='Иванов',
+            birthday=date(1990, 1, 1),
+            position='Менеджер'
+        )
+        slug_value = employee.slug
+        url = f'/employees/{slug_value}/update/'
+        found = resolve(url)
         self.assertEqual(found.func.view_class, EmployeeUpdateView)
 
 
@@ -162,7 +206,3 @@ class EmployeeModelTests(TestCase):
             position='Менеджер'
         )
         self.assertIsNotNone(employee.slug)
-
-
-
-
