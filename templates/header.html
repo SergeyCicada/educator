@@ -17,13 +17,13 @@
                        href="{% url 'employee_create' %}"
                        hx-get="{% url 'employee_create' %}"
                        hx-target="#search-results"
-                       hx-swap="innerHTML">
-                        Добавить
+                       hx-swap="innerHTML">Добавить
                     </a>
 
                     <form action="{% url 'logout' %}" method="post">{% csrf_token %}
                         <a href="#" class="header-nav-link" onclick="parentNode.submit();">Выход</a>
                     </form>
+
                 {% else %}
                 <!-- Форма для выхода -->
                     <a href="{% url 'register' %}" class="header-nav-link">Регистрация</a>
